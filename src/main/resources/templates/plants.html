@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Plant Inventory</title>
+</head>
+<body>
+
+<h1>Plant Inventory</h1>
+
+<p><a th:href="@{/plants/new}">Add New Plant</a></p>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Common Name</th>
+            <th>Category</th>
+            <th>Supplier</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Location</th>
+            <th>Sunlight Needs</th>
+            <th>Last Updated</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:each="plant : ${plants}">
+        <td th:text="${plant.id}">1</td>
+        <td th:text="${plant.commonName}">Snake Plant</td>
+        <td th:text="${plant.category}">Indoor</td>
+        <td th:text="${plant.supplier}">Green Growers</td>
+        <td th:text="${plant.quantityInStock}">10</td>
+        <td th:text="${plant.price}">19.99</td>
+        <td th:text="${plant.location}">Aisle 1</td>
+        <td th:text="${plant.sunlightNeeds}">Low Light</td>
+        <td th:text="${plant.lastUpdated}">2026-04-16T10:00</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

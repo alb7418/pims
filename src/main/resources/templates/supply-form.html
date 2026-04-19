@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Supply Form</title>
+</head>
+<body>
+
+<h1>Supply Form</h1>
+
+<form th:action="@{/supplies}" th:object="${supply}" method="post">
+
+    <input type="hidden" th:field="*{id}">
+
+    <div>
+        <label>Item Name:</label>
+        <input type="text" th:field="*{itemName}">
+    </div>
+    <br>
+
+    <div>
+        <label>Supplier:</label>
+        <input type="text" th:field="*{supplier}">
+    </div>
+    <br>
+
+    <div>
+        <label>Quantity:</label>
+        <input type="number" th:field="*{quantityInStock}">
+    </div>
+    <br>
+
+    <div>
+        <label>Reorder Level:</label>
+        <input type="number" th:field="*{reorderLevel}">
+    </div>
+    <br>
+
+    <div>
+        <label>Price:</label>
+        <input type="number" step="0.01" th:field="*{price}">
+    </div>
+    <br>
+
+    <div>
+        <label>Location</label>
+        <input type="text" th:field="*{location}">
+    </div>
+    <br>
+
+    <div>
+        <button type="submit">Save</button>
+    </div>
+    <br>
+
+</form>
+
+<br>
+<p><a th:href="@{/supplies}">Back to Supplies Inventory</a></p>
+
+</body>
+</html>

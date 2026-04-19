@@ -36,6 +36,10 @@
         <td th:text="${plant.location}">Aisle 1</td>
         <td th:text="${plant.sunlightNeeds}">Low Light</td>
         <td th:text="${plant.lastUpdated}">2026-04-16T10:00</td>
+        <td>
+            <a th:href="@{/plants/edit/{id}(id=${plant.id})}">Edit</a>
+            <a th:href="@{/plants/delete/{id}(id=${plant.id})}">Delete</a>
+        </td>
     </tr>
     </tbody>
 </table>

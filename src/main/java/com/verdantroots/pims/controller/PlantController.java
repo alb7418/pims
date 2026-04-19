@@ -32,6 +32,13 @@ public class PlantController {
         return "plant-form";
     }
 
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Plant plant = plantService.getPlantById(id).orElseThrow(() -> new IllegalArgumentException("Invalid plant id " + id));
+        model.addAttribute("plant", plant);
+        return "plant-form";
+    }
+
     @PostMapping
     public String savePlant(@ModelAttribute Plant plant) {
         plantService.savePlant(plant);

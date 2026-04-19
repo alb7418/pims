@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Local Good Form</title>
+</head>
+<body>
+
+<nav>
+  <a th:href="@{/}">Home</a> |
+  <a th:href="@{/plants}">Plants</a> |
+  <a th:href="@{/supplies}">Supplies</a> |
+  <a th:href="@{/local-goods}">Local Goods</a>
+</nav>
+<hr>
+
+<h1>Local Good Form</h1>
+
+<form th:action="@{/local-goods}" th:object="${localGood}" method="post">
+
+  <input type="hidden" th:field="*{id}">
+
+  <div>
+    <label>Item Name:</label>
+    <input type="text" th:field="*{name}">
+  </div>
+  <br>
+
+  <div>
+    <label>Category:</label>
+    <input type="text" th:field="*{category}">
+  </div>
+  <br>
+
+  <div>
+    <label>Local Vendor:</label>
+    <input type="text" th:field="*{localVendor}">
+  </div>
+  <br>
+
+  <div>
+    <label>Price:</label>
+    <input type="number" step="0.01" th:field="*{price}">
+  </div>
+  <br>
+
+  <div>
+    <label>Quantity in Stock:</label>
+    <input type="number" th:field="*{quantityInStock}">
+  </div>
+  <br>
+
+  <div>
+    <label>Reorder Level:</label>
+    <input type="number" th:field="*{reorderLevel}">
+  </div>
+  <br>
+
+  <div>
+    <label>Location:</label>
+    <input type="text" th:field="*{location}">
+  </div>
+  <br>
+
+  <div>
+    <label>Perishable:</label>
+    <input type="checkbox" th:field="*{perishable}">
+  </div>
+  <br>
+
+  <div>
+    <label>Expiration Date:</label>
+    <input type="date" th:field="*{expirationDate}">
+  </div>
+  <br>
+
+  <div>
+    <button type="submit">Save</button>
+  </div>
+  <br>
+
+</form>
+
+<p><a th:href="@{/local-goods}">Back to Local Goods Inventory</a></p>
+
+</body>
+</html>

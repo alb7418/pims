@@ -47,7 +47,8 @@
         <td th:text="${localGood.reorderLevel}"></td>
         <td th:text="${localGood.location}"></td>
         <td th:text="${localGood.perishable} ? 'Yes' : 'No'"></td>
-        <td th:text="${localGood.expirationDate != null ? #temporals.format(localGood.expirationDate, 'yyyy-MM-dd HH:mm') : 'N/A'}"></td>
+        <td th:text="${localGood.expirationDate != null ? #temporals.format(localGood.expirationDate, 'yyyy-MM-dd') : 'N/A'}"></td>
+        <td th:text="${localGood.lastUpdated != null ? #temporals.format(localGood.lastUpdated, 'yyyy-MM-dd HH:mm') : 'N/A'}"></td>
         <td><span th:if="${localGood.quantityInStock <= localGood.reorderLevel}">🚩</span></td>
         <td>
             <a th:href="@{/local-goods/edit/{id}(id=${localGood.id})}">Edit</a>

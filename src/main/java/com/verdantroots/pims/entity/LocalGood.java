@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.math.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -18,7 +19,7 @@ public class LocalGood {
     @Column(nullable = false)
     private String name;
 
-    @NotBlank(message = "Caegory is required.")
+    @NotBlank(message = "Category is required.")
     @Column(nullable = false)
     private String category;
 
@@ -50,7 +51,7 @@ public class LocalGood {
     @Column(nullable = false)
     private boolean perishable;
 
-    private LocalDateTime expirationDate;
+    private LocalDate expirationDate;
 
     @Column(nullable = false)
     private LocalDateTime lastUpdated;
@@ -143,16 +144,15 @@ public class LocalGood {
         this.perishable = perishable;
     }
 
-    public LocalDateTime getExpirationDate() {
+    public LocalDate getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(LocalDateTime expirationDate) {
+    public void setExpirationDate(LocalDate expirationDate) {
         this.expirationDate = expirationDate;
     }
 
     public LocalDateTime getLastUpdated() {
         return lastUpdated;
     }
-
 }

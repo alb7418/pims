@@ -19,7 +19,7 @@ public class Plant {
     @Column(nullable = false, length = 100)
     private String commonName;
 
-    @Size(max = 150, message = "Scientific name must be 1550 characters or less.")
+    @Size(max = 150, message = "Scientific name must be 150 characters or less.")
     @Column(length = 150)
     private String scientificName;
 

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Local Goods Inventory</title>
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/}">Home</a> |
+    <a th:href="@{/plants}">Plants</a> |
+    <a th:href="@{/supplies}">Supplies</a> |
+    <a th:href="@{/local-goods}">Local Goods</a>
+</nav>
+<hr>
+
+<h1>Local Goods Inventory</h1>
+
+<p><a th:href="@{/local-goods/new}">Add New Local Good</a></p>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Vendor</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Reorder Level</th>
+        <th>Location</th>
+        <th>Perishable</th>
+        <th>Expiration Data</th>
+        <th>Last Updated</th>
+        <th>Low Stock</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="localGood : ${localGoods}">
+        <td th:text="${localGood.id}"></td>
+        <td th:text="${localGood.name}"></td>
+        <td th:text="${localGood.category}"></td>
+        <td th:text="${localGood.localVendor}"></td>
+        <td th:text="${localGood.price}"></td>
+        <td th:text="${localGood.quantityInStock}"></td>
+        <td th:text="${localGood.reorderLevel}"></td>
+        <td th:text="${localGood.location}"></td>
+        <td th:text="${localGood.perishable} ? 'Yes' : 'No'"></td>
+        <td th:text="${localGood.expirationDate != null ? #temporals.format(localGood.expirationDate, 'yyyy-MM-dd HH:mm') : 'N/A'}"></td>
+        <td><span th:if="${localGood.quantityInStock <= localGood.reorderLevel}">🚩</span></td>
+        <td>
+            <a th:href="@{/local-goods/edit/{id}(id=${localGood.id})}">Edit</a>
+            <a th:href="@{/local-goods/delete/{id}(id=${localGood.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

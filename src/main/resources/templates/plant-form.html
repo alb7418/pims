@@ -9,13 +9,16 @@
 <nav>
   <a th:href="@{/}">Home</a> |
   <a th:href="@{/plants}">Plants</a> |
-  <a th:href="@{/supplies}">Supplies</a>
+  <a th:href="@{/supplies}">Supplies</a> |
+  <a th:href="@{/local-goods}">Local Goods</a>
 </nav>
 <hr>
 
 <h1>Add New Plant</h1>
 
 <form th:action="@{/plants}" th:object="${plant}" method="post">
+
+  <input type="hidden" th:field="*{id}">
 
   <div>
     <label for="commonName">Common Name:</label>

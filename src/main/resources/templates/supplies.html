@@ -9,7 +9,8 @@
 <nav>
     <a th:href="@{/}">Home</a> |
     <a th:href="@{/plants}">Plants</a> |
-    <a th:href="@{/supplies}">Supplies</a>
+    <a th:href="@{/supplies}">Supplies</a> |
+    <a th:href="@{/local-goods}">Local Goods</a>
 </nav>
 <hr>
 
@@ -28,6 +29,7 @@
         <th>Price</th>
         <th>Location</th>
         <th>Last Updated</th>
+        <th>Low Stock</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -41,6 +43,7 @@
         <td th:text="${supply.price}">9.99</td>
         <td th:text="${supply.location}">Aisle 2</td>
         <td th:text="${supply.lastUpdated}">2026-04-18</td>
+        <td><span th:if="${supply.quantityInStock <= supply.reorderLevel}">🚩</span></td>
         <td>
             <a th:href="@{/supplies/edit/{id}(id=${supply.id})}">Edit</a>
             <a th:href="@{/supplies/delete/{id}(id=${supply.id})}">Delete</a>

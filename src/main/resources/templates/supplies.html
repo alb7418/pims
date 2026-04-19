@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Supplies Inventory</title>
+</head>
+<body>
+
+<h1>Supplies Inventory</h1>
+
+<p><a th:href="@{/supplies/new}">Add New Supply</a></p>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Item Name</th>
+        <th>Supplier</th>
+        <th>Quantity</th>
+        <th>Reorder Level</th>
+        <th>Price</th>
+        <th>Location</th>
+        <th>Last Updated</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="supply : ${supplies}">
+        <td th:text="${supply.id}">1</td>
+        <td th:text="${supply.itemName}">Potting Soil</td>
+        <td th:text="${supply.supplier}">Vendor</td>
+        <td th:text="${supply.quantityInStock}">10</td>
+        <td th:text="${supply.reorderLevel}">3</td>
+        <td th:text="${supply.price}">9.99</td>
+        <td th:text="${supply.location}">Aisle 2</td>
+        <td th:text="${supply.lastUpdated}">2026-04-18</td>
+        <td>
+            <a th:href="@{/supplies/edit/{id}(id=${supply.id})}">Edit</a>
+            <a th:href="@{/supplies/delete/{id}(id=${supply.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

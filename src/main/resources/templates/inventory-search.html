@@ -108,5 +108,32 @@
     </tbody>
 </table>
 
+<table border="1" th:if="${plantResults != null and !#lists.isEmpty(plantResults)}">
+    <thead>
+    <tr>
+        <th>Common Name</th>
+        <th>Scientific Name</th>
+        <th>Category</th>
+        <th>Supplier</th>
+        <th>Location</th>
+        <th>Quantity In Stock</th>
+        <th>Reorder Level</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${plantResults}">
+        <td th:text="${item.commonName}"></td>
+        <td th:text="${item.scientificName}"></td>
+        <td th:text="${item.category}"></td>
+        <td th:text="${item.supplier}"></td>
+        <td th:text="${item.location}"></td>
+        <td th:text="${item.quantityInStock}"></td>
+        <td th:text="${item.reorderLevel}"></td>
+        <td th:text="${item.price}"></td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>

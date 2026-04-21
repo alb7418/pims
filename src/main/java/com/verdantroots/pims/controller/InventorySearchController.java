@@ -23,6 +23,7 @@ public class InventorySearchController {
     @GetMapping("/inventory-search")
     public String searchInventory(
             @RequestParam(required = false) String name,
+            @RequestParam(required = false) String inventoryType,
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String vendorOrSupplier,
             @RequestParam(required = false) String location,
@@ -33,6 +34,7 @@ public class InventorySearchController {
             Model model) {
 
         boolean hasSearch = (name != null && !name.isBlank())
+                || (inventoryType != null && !inventoryType.isBlank())
                 || (category != null && !category.isBlank())
                 || (vendorOrSupplier != null && !vendorOrSupplier.isBlank())
                 || (location != null && !location.isBlank())
@@ -42,48 +44,56 @@ public class InventorySearchController {
                 || maxPrice != null;
 
         if (hasSearch) {
+
             List<LocalGood> results = localGoodService.getAllLocalGoods();
 
-            if (name != null && !name.isBlank()) {
-                results = results.stream()
-                        .filter(item -> item.getName() != null &&
-                                item.getName().toLowerCase().contains(name.toLowerCase()))
-                        .collect(Collectors.toList());
+            if (inventoryType != null && !inventoryType.isBlank() && !inventoryType.equals("localGood")) {
+                results = List.of(); // empty list for now
             }
 
-            if (category != null && !category.isBlank()) {
-                results = results.stream()
-                        .filter(item -> item.getCategory() != null &&
-                                item.getCategory().toLowerCase().contains(category.toLowerCase()))
-                        .collect(Collectors.toList());
-            }
+            if (!results.isEmpty()) {
 
-            if (vendorOrSupplier != null && !vendorOrSupplier.isBlank()) {
-                results = results.stream()
-                        .filter(item -> item.getLocalVendor() != null &&
-                                item.getLocalVendor().toLowerCase().contains(vendorOrSupplier.toLowerCase()))
-                        .collect(Collectors.toList());
-            }
+                if (name != null && !name.isBlank()) {
+                    results = results.stream()
+                            .filter(item -> item.getName() != null &&
+                                    item.getName().toLowerCase().contains(name.toLowerCase()))
+                            .collect(Collectors.toList());
+                }
 
-            if (location != null && !location.isBlank()) {
-                results = results.stream()
-                        .filter(item -> item.getLocation() != null &&
-                                item.getLocation().toLowerCase().contains(location.toLowerCase()))
-                        .collect(Collectors.toList());
-            }
+                if (category != null && !category.isBlank()) {
+                    results = results.stream()
+                            .filter(item -> item.getCategory() != null &&
+                                    item.getCategory().toLowerCase().contains(category.toLowerCase()))
+                            .collect(Collectors.toList());
+                }
 
-            if (perishable != null && perishable) {
-                results = results.stream()
-                        .filter(LocalGood::isPerishable)
-                        .collect(Collectors.toList());
-            }
+                if (vendorOrSupplier != null && !vendorOrSupplier.isBlank()) {
+                    results = results.stream()
+                            .filter(item -> item.getLocalVendor() != null &&
+                                    item.getLocalVendor().toLowerCase().contains(vendorOrSupplier.toLowerCase()))
+                            .collect(Collectors.toList());
+                }
 
-            if (lowStock != null && lowStock) {
-                results = results.stream()
-                        .filter(item -> item.getQuantityInStock() != null
-                                && item.getReorderLevel() != null
-                                && item.getQuantityInStock() <= item.getReorderLevel())
-                        .collect(Collectors.toList());
+                if (location != null && !location.isBlank()) {
+                    results = results.stream()
+                            .filter(item -> item.getLocation() != null &&
+                                    item.getLocation().toLowerCase().contains(location.toLowerCase()))
+                            .collect(Collectors.toList());
+                }
+
+                if (perishable != null && perishable) {
+                    results = results.stream()
+                            .filter(LocalGood::isPerishable)
+                            .collect(Collectors.toList());
+                }
+
+                if (lowStock != null && lowStock) {
+                    results = results.stream()
+                            .filter(item -> item.getQuantityInStock() != null
+                                    && item.getReorderLevel() != null
+                                    && item.getQuantityInStock() <= item.getReorderLevel())
+                            .collect(Collectors.toList());
+                }
             }
 
             model.addAttribute("results", results);

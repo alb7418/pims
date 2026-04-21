@@ -68,6 +68,7 @@
 
     <div>
         <button type="submit">Search</button>
+        <a th:href="@{/inventory-search}">Reset</a>
     </div>
 
 </form>
@@ -76,7 +77,36 @@
 
 <h2>Search Results</h2>
 
-<p>Search results will appear here.</p>
+<p th:if="${results == null}">Search results will appear here.</p>
+
+<p th:if="${results != null and #lists.isEmpty(results)}">No results found.</p>
+
+<table border="1" th:if="${results != null and !#lists.isEmpty(results)}">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Vendor</th>
+        <th>Location</th>
+        <th>Perishable</th>
+        <th>Quantity In Stock</th>
+        <th>Reorder Level</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${results}">
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.category}"></td>
+        <td th:text="${item.localVendor}"></td>
+        <td th:text="${item.location}"></td>
+        <td th:text="${item.perishable} ? 'Yes' : 'No'"></td>
+        <td th:text="${item.quantityInStock}"></td>
+        <td th:text="${item.reorderLevel}"></td>
+        <td th:text="${item.price}"></td>
+    </tr>
+    </tbody>
+</table>
 
 </body>
 </html>

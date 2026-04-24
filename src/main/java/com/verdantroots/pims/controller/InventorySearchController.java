@@ -2,14 +2,15 @@ package com.verdantroots.pims.controller;
 
 import com.verdantroots.pims.entity.LocalGood;
 import com.verdantroots.pims.entity.Plant;
+import com.verdantroots.pims.entity.Supply;
 import com.verdantroots.pims.service.LocalGoodService;
 import com.verdantroots.pims.service.PlantService;
+import com.verdantroots.pims.service.SupplyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,10 +19,14 @@ public class InventorySearchController {
 
     private final LocalGoodService localGoodService;
     private final PlantService plantService;
+    private final SupplyService supplyService;
 
-    public InventorySearchController(LocalGoodService localGoodService, PlantService plantService) {
+    public InventorySearchController(LocalGoodService localGoodService,
+                                     PlantService plantService,
+                                     SupplyService supplyService) {
         this.localGoodService = localGoodService;
         this.plantService = plantService;
+        this.supplyService = supplyService;
     }
 
     @GetMapping("/inventory-search")
@@ -33,8 +38,6 @@ public class InventorySearchController {
             @RequestParam(required = false) String location,
             @RequestParam(required = false) Boolean perishable,
             @RequestParam(required = false) Boolean lowStock,
-            @RequestParam(required = false) BigDecimal minPrice,
-            @RequestParam(required = false) BigDecimal maxPrice,
             Model model) {
 
         boolean hasSearch = (name != null && !name.isBlank())
@@ -43,13 +46,12 @@ public class InventorySearchController {
                 || (vendorOrSupplier != null && !vendorOrSupplier.isBlank())
                 || (location != null && !location.isBlank())
                 || perishable != null
-                || lowStock != null
-                || minPrice != null
-                || maxPrice != null;
+                || lowStock != null;
 
         if (hasSearch) {
             List<LocalGood> results = List.of();
             List<Plant> plantResults = List.of();
+            List<Supply> supplyResults = List.of();
 
             // PLANT ONLY
             if ("plant".equals(inventoryType)) {
@@ -143,10 +145,49 @@ public class InventorySearchController {
                 }
             }
 
+            // SUPPLY ONLY
+            else if ("supply".equals(inventoryType)) {
+                supplyResults = supplyService.getAllSupplies();
+
+                if ((perishable != null && perishable) || (category != null && !category.isBlank())) {
+                    supplyResults = List.of();
+                } else {
+                    if (name != null && !name.isBlank()) {
+                        supplyResults = supplyResults.stream()
+                                .filter(item -> item.getItemName() != null &&
+                                        item.getItemName().toLowerCase().contains(name.toLowerCase()))
+                                .collect(Collectors.toList());
+                    }
+
+                    if (vendorOrSupplier != null && !vendorOrSupplier.isBlank()) {
+                        supplyResults = supplyResults.stream()
+                                .filter(item -> item.getSupplier() != null &&
+                                        item.getSupplier().toLowerCase().contains(vendorOrSupplier.toLowerCase()))
+                                .collect(Collectors.toList());
+                    }
+
+                    if (location != null && !location.isBlank()) {
+                        supplyResults = supplyResults.stream()
+                                .filter(item -> item.getLocation() != null &&
+                                        item.getLocation().toLowerCase().contains(location.toLowerCase()))
+                                .collect(Collectors.toList());
+                    }
+
+                    if (lowStock != null && lowStock) {
+                        supplyResults = supplyResults.stream()
+                                .filter(item -> item.getQuantityInStock() != null
+                                        && item.getReorderLevel() != null
+                                        && item.getQuantityInStock() <= item.getReorderLevel())
+                                .collect(Collectors.toList());
+                    }
+                }
+            }
+
             // ALL
             else if (inventoryType == null || inventoryType.isBlank()) {
                 results = localGoodService.getAllLocalGoods();
                 plantResults = plantService.getAllPlants();
+                supplyResults = supplyService.getAllSupplies();
 
                 if (name != null && !name.isBlank()) {
                     results = results.stream()
@@ -157,6 +198,11 @@ public class InventorySearchController {
                     plantResults = plantResults.stream()
                             .filter(item -> item.getCommonName() != null &&
                                     item.getCommonName().toLowerCase().contains(name.toLowerCase()))
+                            .collect(Collectors.toList());
+
+                    supplyResults = supplyResults.stream()
+                            .filter(item -> item.getItemName() != null &&
+                                    item.getItemName().toLowerCase().contains(name.toLowerCase()))
                             .collect(Collectors.toList());
                 }
 
@@ -170,6 +216,8 @@ public class InventorySearchController {
                             .filter(item -> item.getCategory() != null &&
                                     item.getCategory().toLowerCase().contains(category.toLowerCase()))
                             .collect(Collectors.toList());
+
+                    supplyResults = List.of();
                 }
 
                 if (vendorOrSupplier != null && !vendorOrSupplier.isBlank()) {
@@ -179,6 +227,11 @@ public class InventorySearchController {
                             .collect(Collectors.toList());
 
                     plantResults = plantResults.stream()
+                            .filter(item -> item.getSupplier() != null &&
+                                    item.getSupplier().toLowerCase().contains(vendorOrSupplier.toLowerCase()))
+                            .collect(Collectors.toList());
+
+                    supplyResults = supplyResults.stream()
                             .filter(item -> item.getSupplier() != null &&
                                     item.getSupplier().toLowerCase().contains(vendorOrSupplier.toLowerCase()))
                             .collect(Collectors.toList());
@@ -194,6 +247,11 @@ public class InventorySearchController {
                             .filter(item -> item.getLocation() != null &&
                                     item.getLocation().toLowerCase().contains(location.toLowerCase()))
                             .collect(Collectors.toList());
+
+                    supplyResults = supplyResults.stream()
+                            .filter(item -> item.getLocation() != null &&
+                                    item.getLocation().toLowerCase().contains(location.toLowerCase()))
+                            .collect(Collectors.toList());
                 }
 
                 if (perishable != null && perishable) {
@@ -202,6 +260,7 @@ public class InventorySearchController {
                             .collect(Collectors.toList());
 
                     plantResults = List.of();
+                    supplyResults = List.of();
                 }
 
                 if (lowStock != null && lowStock) {
@@ -216,11 +275,18 @@ public class InventorySearchController {
                                     && item.getReorderLevel() != null
                                     && item.getQuantityInStock() <= item.getReorderLevel())
                             .collect(Collectors.toList());
+
+                    supplyResults = supplyResults.stream()
+                            .filter(item -> item.getQuantityInStock() != null
+                                    && item.getReorderLevel() != null
+                                    && item.getQuantityInStock() <= item.getReorderLevel())
+                            .collect(Collectors.toList());
                 }
             }
 
             model.addAttribute("results", results);
             model.addAttribute("plantResults", plantResults);
+            model.addAttribute("supplyResults", supplyResults);
         }
 
         return "inventory-search";

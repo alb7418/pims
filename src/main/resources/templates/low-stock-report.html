@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Low Stock Report</title>
+  <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<div class="container">
+
+  <nav>
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/plants}">Plants</a>
+    <a th:href="@{/supplies}">Supplies</a>
+    <a th:href="@{/local-goods}">Local Goods</a>
+    <a th:href="@{/inventory-search}">Search</a>
+    <a th:href="@{/reports}">Reports</a>
+  </nav>
+
+  <div class="report-header">
+    <h1>Low Stock Report</h1>
+
+    <button type="button" class="print-button icon-only" onclick="window.print()" title="Print Report">
+      🖨
+    </button>
+  </div>
+
+  <div class="home-card">
+    <p>
+      This report lists all inventory items where the quantity in stock is at or below
+      the reorder level.
+    </p>
+  </div>
+
+  <p th:if="${#lists.isEmpty(lowStockPlants) and #lists.isEmpty(lowStockSupplies) and #lists.isEmpty(lowStockLocalGoods)}">
+    No low stock items found.
+  </p>
+
+  <h3 th:if="${!#lists.isEmpty(lowStockPlants)}">Plants</h3>
+
+  <table border="1" th:if="${!#lists.isEmpty(lowStockPlants)}">
+    <thead>
+    <tr>
+      <th>Common Name</th>
+      <th>Category</th>
+      <th>Supplier</th>
+      <th>Location</th>
+      <th>Quantity</th>
+      <th>Reorder Level</th>
+      <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="plant : ${lowStockPlants}">
+      <td th:text="${plant.commonName}">Plant</td>
+      <td th:text="${plant.category}">Category</td>
+      <td th:text="${plant.supplier}">Supplier</td>
+      <td th:text="${plant.location}">Location</td>
+      <td class="number_cell" th:text="${plant.quantityInStock}">0</td>
+      <td class="number_cell" th:text="${plant.reorderLevel}">0</td>
+      <td th:text="${#numbers.formatCurrency(plant.price)}">$0.00</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h3 th:if="${!#lists.isEmpty(lowStockSupplies)}">Supplies</h3>
+
+  <table border="1" th:if="${!#lists.isEmpty(lowStockSupplies)}">
+    <thead>
+    <tr>
+      <th>Item Name</th>
+      <th>Supplier</th>
+      <th>Location</th>
+      <th>Quantity</th>
+      <th>Reorder Level</th>
+      <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="supply : ${lowStockSupplies}">
+      <td th:text="${supply.itemName}">Supply</td>
+      <td th:text="${supply.supplier}">Supplier</td>
+      <td th:text="${supply.location}">Location</td>
+      <td class="number_cell" th:text="${supply.quantityInStock}">0</td>
+      <td class="number_cell" th:text="${supply.reorderLevel}">0</td>
+      <td th:text="${#numbers.formatCurrency(supply.price)}">$0.00</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h3 th:if="${!#lists.isEmpty(lowStockLocalGoods)}">Local Goods</h3>
+
+  <table border="1" th:if="${!#lists.isEmpty(lowStockLocalGoods)}">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Vendor</th>
+      <th>Location</th>
+      <th>Perishable</th>
+      <th>Quantity</th>
+      <th>Reorder Level</th>
+      <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${lowStockLocalGoods}">
+      <td th:text="${item.name}">Local Good</td>
+      <td th:text="${item.category}">Category</td>
+      <td th:text="${item.localVendor}">Vendor</td>
+      <td th:text="${item.location}">Location</td>
+      <td class="yes_no_cell" th:text="${item.perishable} ? 'Yes' : 'No'">No</td>
+      <td class="number_cell" th:text="${item.quantityInStock}">0</td>
+      <td class="number_cell" th:text="${item.reorderLevel}">0</td>
+      <td th:text="${#numbers.formatCurrency(item.price)}">$0.00</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <footer>
+    <p>&copy; 2026 Verdant Roots Nursery | PIMS</p>
+  </footer>
+
+</div>
+</body>
+</html>

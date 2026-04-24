@@ -205,6 +205,37 @@ td a {
     color: #b85c38;
 }
 
+.report-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+    margin-top: 30px;
+}
+
+.report-card {
+    display: block;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #2f4f3a;
+    box-shadow: 0 2px 8px rgba(47, 79, 58, 0.08);
+}
+
+.report-card:hover {
+    box-shadow: 0 4px 12px rgba(47, 79, 58, 0.15);
+}
+
+.report-card h3 {
+    margin-top: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.report-card.disabled {
+    opacity: 0.65;
+}
+
 footer {
     margin-top: 50px;
     padding-bottom: 20px;
@@ -237,5 +268,54 @@ footer {
     .dashboard-card {
         width: 100%;
         max-width: 300px;
+    }
+}
+
+.report-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.report-header .print-button {
+    position: absolute;
+    right: 0;
+}
+
+.print-button {
+    background-color: #6f9f72;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.print-button.icon-only {
+    font-size: 18px;
+    padding: 8px 10px;
+}
+
+.print-button:hover {
+    background-color: #5c875f;
+}
+
+@media print {
+    nav,
+    .print-button-container,
+    footer {
+        display: none;
+    }
+
+    body {
+        background-color: white;
+        color: black;
+    }
+
+    table {
+        box-shadow: none;
     }
 }

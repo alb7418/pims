@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recently Updated Inventory</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<div class="container">
+
+    <nav>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/plants}">Plants</a>
+        <a th:href="@{/supplies}">Supplies</a>
+        <a th:href="@{/local-goods}">Local Goods</a>
+        <a th:href="@{/inventory-search}">Search</a>
+        <a th:href="@{/reports}">Reports</a>
+    </nav>
+
+    <div class="report-header">
+        <h1>Recently Updated Inventory</h1>
+
+        <button type="button" class="print-button icon-only" onclick="window.print()" title="Print Report">
+            🖨
+        </button>
+    </div>
+
+    <div class="home-card">
+        <p>
+            This report shows inventory items sorted by most recent updates.
+            Useful for tracking activity such as sales, restocking, and adjustments.
+        </p>
+    </div>
+
+    <p th:if="${#lists.isEmpty(rows)}">
+        No inventory items found.
+    </p>
+
+    <table border="1" th:if="${!#lists.isEmpty(rows)}">
+        <thead>
+        <tr>
+            <th>Last Updated</th>
+            <th>Type</th>
+            <th>Item Name</th>
+            <th>Location</th>
+            <th>Quantity</th>
+            <th>Low Stock</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="row : ${rows}">
+            <td th:text="${#temporals.format(row.lastUpdated, 'MM/dd/yyyy HH:mm')}"></td>
+            <td th:text="${row.type}"></td>
+            <td th:text="${row.name}"></td>
+            <td th:text="${row.location}"></td>
+            <td class="number_cell" th:text="${row.quantity}"></td>
+            <td class="low_stock_flag">
+                <span th:if="${row.lowStock}">🚩</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <footer>
+        <p>&copy; 2026 Verdant Roots Nursery | PIMS</p>
+    </footer>
+
+</div>
+</body>
+</html>

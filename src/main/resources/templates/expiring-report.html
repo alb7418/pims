@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Expiring Local Goods Report</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<div class="container">
+
+    <nav>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/plants}">Plants</a>
+        <a th:href="@{/supplies}">Supplies</a>
+        <a th:href="@{/local-goods}">Local Goods</a>
+        <a th:href="@{/inventory-search}">Search</a>
+        <a th:href="@{/reports}">Reports</a>
+    </nav>
+
+    <div class="report-header">
+        <h1>Expiring Local Goods Report</h1>
+
+        <button type="button" class="print-button icon-only" onclick="window.print()" title="Print Report">
+            🖨
+        </button>
+    </div>
+
+    <div class="home-card">
+        <p>
+            This report lists local goods with expiration dates within the next 7 days.
+        </p>
+    </div>
+
+    <p th:if="${#lists.isEmpty(expiringSoonLocalGoods)}">
+        No expiring local goods found.
+    </p>
+
+    <table border="1" th:if="${!#lists.isEmpty(expiringSoonLocalGoods)}">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Vendor</th>
+            <th>Location</th>
+            <th>Quantity</th>
+            <th>Expiration Date</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${expiringSoonLocalGoods}">
+            <td th:text="${item.name}">Local Good</td>
+            <td th:text="${item.category}">Category</td>
+            <td th:text="${item.localVendor}">Vendor</td>
+            <td th:text="${item.location}">Location</td>
+            <td class="number_cell" th:text="${item.quantityInStock}">0</td>
+            <td class="date_cell" th:text="${item.expirationDate}">2026-01-01</td>
+            <td th:text="${#numbers.formatCurrency(item.price)}">$0.00</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <footer>
+        <p>&copy; 2026 Verdant Roots Nursery | PIMS</p>
+    </footer>
+
+</div>
+</body>
+</html>

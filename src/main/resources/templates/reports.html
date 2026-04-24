@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reports</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<div class="container">
+
+    <nav>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/plants}">Plants</a>
+        <a th:href="@{/supplies}">Supplies</a>
+        <a th:href="@{/local-goods}">Local Goods</a>
+        <a th:href="@{/inventory-search}">Search</a>
+        <a th:href="@{/reports}">Reports</a>
+    </nav>
+
+    <h1>Reports</h1>
+
+    <div class="home-card">
+        <p>
+            Use the reports below to review inventory concerns, support reorder planning,
+            and identify items that may need attention.
+        </p>
+    </div>
+
+    <div class="report-links">
+
+        <a class="report-card" th:href="@{/reports/low-stock}" target="_blank">
+            <h3>Low Stock Report</h3>
+            <p>View plants, supplies, and local goods at or below reorder level.</p>
+        </a>
+
+        <a class="report-card" th:href="@{/reports/expiring}" target="_blank">
+            <h3>Expiring Local Goods Report</h3>
+            <p>View local goods with expiration dates within the next 7 days.</p>
+        </a>
+
+        <a class="report-card" th:href="@{/reports/inventory-by-location}" target="_blank">
+            <h3>Inventory by Location</h3>
+            <p>View all plants, supplies, and local goods grouped by inventory location.</p>
+        </a>
+
+        <a class="report-card" th:href="@{/reports/recently-updated}" target="_blank">
+            <h3>Recently Updated Inventory</h3>
+            <p>View inventory activity sorted by most recent updates.</p>
+        </a>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Verdant Roots Nursery | PIMS</p>
+    </footer>
+
+</div>
+</body>
+</html>

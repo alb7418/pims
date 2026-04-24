@@ -2,20 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Search and Reports</title>
+    <title>Search</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
+<div class="container">
 
 <nav>
     <a th:href="@{/}">Home</a> |
     <a th:href="@{/plants}">Plants</a> |
     <a th:href="@{/supplies}">Supplies</a> |
     <a th:href="@{/local-goods}">Local Goods</a> |
-    <a th:href="@{/inventory-search}">Search & Reports</a>
+    <a th:href="@{/inventory-search}">Search</a>
 </nav>
 <hr>
 
-<h1>Search & Reports</h1>
+<h1>Search</h1>
 
 <form th:action="@{/inventory-search}" method="get">
 
@@ -68,7 +70,9 @@
 
     <div>
         <button type="submit">Search</button>
-        <a th:href="@{/inventory-search}">Reset</a>
+        <a th:href="@{/inventory-search}">
+            <button type="button">Reset</button>
+        </a>
     </div>
 
 </form>
@@ -88,6 +92,7 @@
     No results found.
 </p>
 
+<h3 th:if="${results != null and !#lists.isEmpty(results)}">Local Goods</h3>
 <table border="1" th:if="${results != null and !#lists.isEmpty(results)}">
     <thead>
     <tr>
@@ -107,14 +112,15 @@
         <td th:text="${item.category}"></td>
         <td th:text="${item.localVendor}"></td>
         <td th:text="${item.location}"></td>
-        <td th:text="${item.perishable} ? 'Yes' : 'No'"></td>
-        <td th:text="${item.quantityInStock}"></td>
-        <td th:text="${item.reorderLevel}"></td>
-        <td th:text="${item.price}"></td>
+        <td class="yes_no_cell" th:text="${item.perishable} ? 'Yes' : 'No'"></td>
+        <td class="number_cell" th:text="${item.quantityInStock}"></td>
+        <td class="number_cell" th:text="${item.reorderLevel}"></td>
+        <td th:text="${#numbers.formatCurrency(item.price)}"></td>
     </tr>
     </tbody>
 </table>
 
+<h3 th:if="${plantResults != null and !#lists.isEmpty(plantResults)}">Plants</h3>
 <table border="1" th:if="${plantResults != null and !#lists.isEmpty(plantResults)}">
     <thead>
     <tr>
@@ -135,13 +141,14 @@
         <td th:text="${item.category}"></td>
         <td th:text="${item.supplier}"></td>
         <td th:text="${item.location}"></td>
-        <td th:text="${item.quantityInStock}"></td>
-        <td th:text="${item.reorderLevel}"></td>
-        <td th:text="${item.price}"></td>
+        <td class="number_cell" th:text="${item.quantityInStock}"></td>
+        <td class="number_cell" th:text="${item.reorderLevel}"></td>
+        <td th:text="${#numbers.formatCurrency(item.price)}"></td>
     </tr>
     </tbody>
 </table>
 
+<h3 th:if="${supplyResults != null and !#lists.isEmpty(supplyResults)}">Supplies</h3>
 <table border="1" th:if="${supplyResults != null and !#lists.isEmpty(supplyResults)}">
     <thead>
     <tr>
@@ -158,12 +165,16 @@
         <td th:text="${item.itemName}"></td>
         <td th:text="${item.supplier}"></td>
         <td th:text="${item.location}"></td>
-        <td th:text="${item.quantityInStock}"></td>
-        <td th:text="${item.reorderLevel}"></td>
-        <td th:text="${item.price}"></td>
+        <td class="number_cell" th:text="${item.quantityInStock}"></td>
+        <td class="number_cell" th:text="${item.reorderLevel}"></td>
+        <td th:text="${#numbers.formatCurrency(item.price)}"></td>
     </tr>
     </tbody>
 </table>
 
+</div>
 </body>
+<footer>
+    <p>&copy; 2026 Verdant Roots Nursery | PIMS</p>
+</footer>
 </html>

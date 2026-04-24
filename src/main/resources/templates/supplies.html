@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Supplies Inventory</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
+<div class="container">
 
 <nav>
     <a th:href="@{/}">Home</a> |
     <a th:href="@{/plants}">Plants</a> |
     <a th:href="@{/supplies}">Supplies</a> |
     <a th:href="@{/local-goods}">Local Goods</a> |
-    <a th:href="@{/inventory-search}">Search & Reports</a>
+    <a th:href="@{/inventory-search}">Search</a>
 </nav>
 <hr>
 
@@ -39,12 +41,12 @@
         <td th:text="${supply.id}">1</td>
         <td th:text="${supply.itemName}">Potting Soil</td>
         <td th:text="${supply.supplier}">Vendor</td>
-        <td th:text="${supply.quantityInStock}">10</td>
-        <td th:text="${supply.reorderLevel}">3</td>
-        <td th:text="${supply.price}">9.99</td>
+        <td class="number_cell" th:text="${supply.quantityInStock}">10</td>
+        <td class="number_cell" th:text="${supply.reorderLevel}">3</td>
+        <td th:text="${#numbers.formatCurrency(supply.price)}">9.99</td>
         <td th:text="${supply.location}">Aisle 2</td>
         <td th:text="${supply.lastUpdated}">2026-04-18</td>
-        <td><span th:if="${supply.quantityInStock <= supply.reorderLevel}">🚩</span></td>
+        <td class="low_stock_flag"><span th:if="${supply.quantityInStock <= supply.reorderLevel}">🚩</span></td>
         <td>
             <a th:href="@{/supplies/edit/{id}(id=${supply.id})}">Edit</a>
             <a th:href="@{/supplies/delete/{id}(id=${supply.id})}">Delete</a>
@@ -53,5 +55,9 @@
     </tbody>
 </table>
 
+</div>
 </body>
+<footer>
+    <p>&copy; 2026 Verdant Roots Nursery | PIMS</p>
+</footer>
 </html>

@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Local Good Form</title>
+  <meta charset="UTF-8">
+  <title>Local Good Form</title>
+  <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
+<div class="container">
 
 <nav>
   <a th:href="@{/}">Home</a> |
   <a th:href="@{/plants}">Plants</a> |
   <a th:href="@{/supplies}">Supplies</a> |
   <a th:href="@{/local-goods}">Local Goods</a> |
-  <a th:href="@{/inventory-search}">Search & Reports</a>
+  <a th:href="@{/inventory-search}">Search</a>
 </nav>
 <hr>
 
@@ -84,5 +86,9 @@
 
 <p><a th:href="@{/local-goods}">Back to Local Goods Inventory</a></p>
 
+</div>
 </body>
+<footer>
+  <p>&copy; 2026 Verdant Roots Nursery | PIMS</p>
+</footer>
 </html>

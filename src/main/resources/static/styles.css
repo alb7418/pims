@@ -369,3 +369,11 @@ footer {
 .secondary-button:hover {
     background-color: #557058;
 }
+
+.report-timestamp {
+    text-align: right;
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}

@@ -42,6 +42,10 @@
       followed by all other locations alphabetically.
     </p>
   </div>
+  <p class="report-timestamp">
+    Report Generated:
+    <span th:text="${#temporals.format(generatedAt, 'MM/dd/yyyy')}">04/24/2026</span>
+  </p>
 
   <p th:if="${#lists.isEmpty(rows)}">
     No inventory items found.

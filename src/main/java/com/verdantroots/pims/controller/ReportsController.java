@@ -60,6 +60,7 @@ public class ReportsController {
         model.addAttribute("lowStockPlants", lowStockPlants);
         model.addAttribute("lowStockSupplies", lowStockSupplies);
         model.addAttribute("lowStockLocalGoods", lowStockLocalGoods);
+        model.addAttribute("generatedAt", LocalDate.now());
 
         return "low-stock-report";
     }
@@ -74,6 +75,7 @@ public class ReportsController {
                 .collect(Collectors.toList());
 
         model.addAttribute("expiringSoonLocalGoods", expiringSoonLocalGoods);
+        model.addAttribute("generatedAt", LocalDate.now());
 
         return "expiring-report";
     }
@@ -139,6 +141,7 @@ public class ReportsController {
         });
 
         model.addAttribute("rows", rows);
+        model.addAttribute("generatedAt", LocalDate.now());
 
         return "inventory-by-location-report";
     }
@@ -190,6 +193,7 @@ public class ReportsController {
         });
 
         model.addAttribute("rows", rows);
+        model.addAttribute("generatedAt", LocalDate.now());
 
         return "recently-updated-report";
     }

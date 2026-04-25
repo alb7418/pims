@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Expiring Local Goods Report</title>
@@ -14,8 +16,17 @@
         <a th:href="@{/supplies}">Supplies</a>
         <a th:href="@{/local-goods}">Local Goods</a>
         <a th:href="@{/inventory-search}">Search</a>
-        <a th:href="@{/reports}">Reports</a>
+        <a th:href="@{/reports}" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">Reports</a>
     </nav>
+
+    <div class="logout-area">
+        <form th:action="@{/logout}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <button type="submit" class="secondary-button">Logout</button>
+        </form>
+    </div>
+
+    <hr>
 
     <div class="report-header">
         <h1>Expiring Local Goods Report</h1>

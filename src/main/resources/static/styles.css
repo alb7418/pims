@@ -319,3 +319,53 @@ footer {
         box-shadow: none;
     }
 }
+
+.login-form {
+    max-width: 350px;
+    margin: 25px auto 0;
+    text-align: left;
+}
+
+.login-form .form-group {
+    margin-bottom: 15px;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.login-form input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.logout-area {
+    display: flex;
+    justify-content: flex-end;
+    max-width: 900px;
+    margin: 8px auto 0;
+}
+
+.logout-area form {
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+.secondary-button {
+    background-color: #6f8f72;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.secondary-button:hover {
+    background-color: #557058;
+}

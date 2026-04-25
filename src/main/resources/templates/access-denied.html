@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Access Denied | Verdant Roots Nursery</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<div class="container">
+
+    <nav>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/plants}">Plants</a>
+        <a th:href="@{/supplies}">Supplies</a>
+        <a th:href="@{/local-goods}">Local Goods</a>
+        <a th:href="@{/inventory-search}">Search</a>
+        <a th:href="@{/reports}" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">Reports</a>
+    </nav>
+
+    <div class="logout-area">
+        <form th:action="@{/logout}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <button type="submit" class="secondary-button">Logout</button>
+        </form>
+    </div>
+
+    <hr>
+
+    <div class="home-card">
+        <h1>Access Denied</h1>
+
+        <p>
+            You do not have permission to view this page.
+            Please contact a manager or administrator if you need access.
+        </p>
+
+        <a th:href="@{/}">Return to Home</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Verdant Roots Nursery | PIMS</p>
+    </footer>
+
+</div>
+</body>
+</html>

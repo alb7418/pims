@@ -3,8 +3,10 @@ package com.verdantroots.pims.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.DecimalMin;
 
-import java.math.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,21 +21,26 @@ public class Supply {
     @Column(nullable = false)
     private String itemName;
 
+    // Optional field (no validation)
     @Column(nullable = false)
     private String supplier;
 
     @NotNull(message = "Quantity in stock is required.")
+    @Min(value = 0, message = "Quantity in stock cannot be negative.")
     @Column(nullable = false)
     private Integer quantityInStock;
 
     @NotNull(message = "Reorder level is required.")
+    @Min(value = 0, message = "Reorder level cannot be negative.")
     @Column(nullable = false)
     private Integer reorderLevel;
 
     @NotNull(message = "Price is required.")
+    @DecimalMin(value = "0.00", message = "Price cannot be negative.")
     @Column(nullable = false)
     private BigDecimal price;
 
+    // Optional field (no validation)
     private String location;
 
     @Column(nullable = false)
@@ -106,5 +113,4 @@ public class Supply {
     public LocalDateTime getLastUpdated() {
         return lastUpdated;
     }
-
 }

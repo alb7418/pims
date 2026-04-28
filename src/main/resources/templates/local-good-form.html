@@ -25,80 +25,90 @@
       <button type="submit" class="secondary-button">Logout</button>
     </form>
   </div>
-<hr>
 
-<h1>Local Good Form</h1>
+  <hr>
 
-<form th:action="@{/local-goods}" th:object="${localGood}" method="post">
+  <h1>Local Good Form</h1>
 
-  <input type="hidden" th:field="*{id}">
+  <form th:action="@{/local-goods}" th:object="${localGood}" method="post">
 
-  <div>
-    <label>Item Name:</label>
-    <input type="text" th:field="*{name}">
-  </div>
-  <br>
+    <input type="hidden" th:field="*{id}">
 
-  <div>
-    <label>Category:</label>
-    <input type="text" th:field="*{category}">
-  </div>
-  <br>
+    <div>
+      <label>Item Name:</label>
+      <input type="text" th:field="*{name}">
+      <div class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    </div>
+    <br>
 
-  <div>
-    <label>Local Vendor:</label>
-    <input type="text" th:field="*{localVendor}">
-  </div>
-  <br>
+    <div>
+      <label>Category:</label>
+      <input type="text" th:field="*{category}">
+      <div class="error-message" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
+    </div>
+    <br>
 
-  <div>
-    <label>Price:</label>
-    <input type="number" step="0.01" th:field="*{price}">
-  </div>
-  <br>
+    <div>
+      <label>Local Vendor:</label>
+      <input type="text" th:field="*{localVendor}">
+      <div class="error-message" th:if="${#fields.hasErrors('localVendor')}" th:errors="*{localVendor}"></div>
+    </div>
+    <br>
 
-  <div>
-    <label>Quantity in Stock:</label>
-    <input type="number" th:field="*{quantityInStock}">
-  </div>
-  <br>
+    <div>
+      <label>Price:</label>
+      <input type="number" step="0.01" th:field="*{price}">
+      <div class="error-message" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+    </div>
+    <br>
 
-  <div>
-    <label>Reorder Level:</label>
-    <input type="number" th:field="*{reorderLevel}">
-  </div>
-  <br>
+    <div>
+      <label>Quantity in Stock:</label>
+      <input type="number" th:field="*{quantityInStock}">
+      <div class="error-message" th:if="${#fields.hasErrors('quantityInStock')}" th:errors="*{quantityInStock}"></div>
+    </div>
+    <br>
 
-  <div>
-    <label>Location:</label>
-    <input type="text" th:field="*{location}">
-  </div>
-  <br>
+    <div>
+      <label>Reorder Level:</label>
+      <input type="number" th:field="*{reorderLevel}">
+      <div class="error-message" th:if="${#fields.hasErrors('reorderLevel')}" th:errors="*{reorderLevel}"></div>
+    </div>
+    <br>
 
-  <div>
-    <label>Perishable:</label>
-    <input type="checkbox" th:field="*{perishable}">
-  </div>
-  <br>
+    <div>
+      <label>Location:</label>
+      <input type="text" th:field="*{location}">
+      <div class="error-message" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></div>
+    </div>
+    <br>
 
-  <div>
-    <label>Expiration Date:</label>
-    <input type="date" th:field="*{expirationDate}">
-  </div>
-  <br>
+    <div>
+      <label>Perishable:</label>
+      <input type="checkbox" th:field="*{perishable}">
+    </div>
+    <br>
 
-  <div>
-    <button type="submit">Save</button>
-  </div>
-  <br>
+    <div>
+      <label>Expiration Date:</label>
+      <input type="date" th:field="*{expirationDate}">
+      <div class="error-message" th:if="${#fields.hasErrors('expirationDate')}" th:errors="*{expirationDate}"></div>
+    </div>
+    <br>
 
-</form>
+    <div>
+      <button type="submit">Save</button>
+    </div>
+    <br>
 
-<p><a th:href="@{/local-goods}">Back to Local Goods Inventory</a></p>
+  </form>
+
+  <p><a th:href="@{/local-goods}">Back to Local Goods Inventory</a></p>
 
 </div>
-</body>
+
 <footer>
   <p>&copy; 2026 Verdant Roots Nursery | PIMS</p>
 </footer>
+</body>
 </html>

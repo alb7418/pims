@@ -2,8 +2,10 @@ package com.verdantroots.pims.controller;
 
 import com.verdantroots.pims.entity.Supply;
 import com.verdantroots.pims.service.SupplyService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,13 +35,21 @@ public class SupplyController {
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        Supply supply = supplyService.getSupplyById(id).orElseThrow(() -> new IllegalArgumentException("Invalid supply id: " + id));
+        Supply supply = supplyService.getSupplyById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid supply id: " + id));
         model.addAttribute("supply", supply);
         return "supply-form";
     }
 
     @PostMapping
-    public String saveSupply(@ModelAttribute("supply") Supply supply) {
+    public String saveSupply(@Valid @ModelAttribute("supply") Supply supply,
+                             BindingResult bindingResult,
+                             Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "supply-form";
+        }
+
         supplyService.saveSupply(supply);
         return "redirect:/supplies";
     }
@@ -49,5 +59,4 @@ public class SupplyController {
         supplyService.deleteSupplyById(id);
         return "redirect:/supplies";
     }
-
 }

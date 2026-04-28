@@ -2,9 +2,10 @@ package com.verdantroots.pims.controller;
 
 import com.verdantroots.pims.entity.Plant;
 import com.verdantroots.pims.service.PlantService;
-import org.springframework.security.core.parameters.P;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,13 +35,21 @@ public class PlantController {
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        Plant plant = plantService.getPlantById(id).orElseThrow(() -> new IllegalArgumentException("Invalid plant id " + id));
+        Plant plant = plantService.getPlantById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid plant id " + id));
         model.addAttribute("plant", plant);
         return "plant-form";
     }
 
     @PostMapping
-    public String savePlant(@ModelAttribute Plant plant) {
+    public String savePlant(@Valid @ModelAttribute("plant") Plant plant,
+                            BindingResult bindingResult,
+                            Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "plant-form";
+        }
+
         plantService.savePlant(plant);
         return "redirect:/plants";
     }
@@ -50,5 +59,4 @@ public class PlantController {
         plantService.deletePlant(id);
         return "redirect:/plants";
     }
-
 }

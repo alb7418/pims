@@ -2,8 +2,10 @@ package com.verdantroots.pims.controller;
 
 import com.verdantroots.pims.entity.LocalGood;
 import com.verdantroots.pims.service.LocalGoodService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,13 +35,21 @@ public class LocalGoodController {
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        LocalGood localGood = localGoodService.getLocalGoodById(id).orElseThrow(()->new IllegalArgumentException("Invalid local good id: " + id));
+        LocalGood localGood = localGoodService.getLocalGoodById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid local good id: " + id));
         model.addAttribute("localGood", localGood);
         return "local-good-form";
     }
 
     @PostMapping
-    public String saveLocalGood(@ModelAttribute("LocalGood") LocalGood localGood) {
+    public String saveLocalGood(@Valid @ModelAttribute("localGood") LocalGood localGood,
+                                BindingResult bindingResult,
+                                Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "local-good-form";
+        }
+
         localGoodService.saveLocalGood(localGood);
         return "redirect:/local-goods";
     }
@@ -49,5 +59,4 @@ public class LocalGoodController {
         localGoodService.deleteLocalGoodById(id);
         return "redirect:/local-goods";
     }
-
 }

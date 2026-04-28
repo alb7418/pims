@@ -377,3 +377,9 @@ footer {
     margin-top: 10px;
     margin-bottom: 15px;
 }
+.error-message {
+    color: #b00020;
+    font-size: 0.9rem;
+    margin-top: 4px;
+    font-weight: bold;
+}

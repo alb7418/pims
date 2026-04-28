@@ -1,29 +1,86 @@
-<strong>**DO NOT DISTRIBUTE OR PUBLICLY POST SOLUTIONS TO THESE LABS. MAKE ALL FORKS OF THIS REPOSITORY WITH SOLUTION CODE PRIVATE. PLEASE REFER TO THE STUDENT CODE OF CONDUCT AND ETHICAL EXPECTATIONS FOR COLLEGE OF INFORMATION TECHNOLOGY STUDENTS FOR SPECIFICS. **</strong>
+# Plant Inventory Management System (PIMS)
 
-# WESTERN GOVERNORS UNIVERSITY 
-## D424 – SOFTWARE ENGINEERING CAPSTONE
-Welcome to Software Engineering Capstone! This is an opportunity for students to develop full stack software engineering documentation and applications. They will execute documentation, unit testing, revision of software applications, and deploy software applications with scripts and containers on a cloud platform.
+The Plant Inventory Management System (PIMS) is a full-stack web application developed for Verdant Roots Nursery to manage inventory, monitor stock levels, and generate reports.
 
-FOR SPECIFIC TASK INSTRUCTIONS AND REQUIREMENTS FOR THIS ASSESSMENT, PLEASE REFER TO THE COURSE PAGE.
-BASIC INSTRUCTIONS
-For this assessment, you will deploy your developed full stack software product to a web service of your choice.
+The application provides a centralized and user-friendly solution for tracking plants, supplies, and locally sourced goods.
 
+---
 
-## SUPPLEMENTAL RESOURCES  
-1.	How to clone a project to IntelliJ using Git?
+## Live Application
 
-> Ensure that you have Git installed on your system and that IntelliJ is installed using [Toolbox](https://www.jetbrains.com/toolbox-app/). Make sure that you are using version 2022.3.2. Once this has been confirmed, click the clone button and use the 'IntelliJ IDEA (HTTPS)' button. This will open IntelliJ with a prompt to clone the proejct. Save it in a safe location for the directory and press clone. IntelliJ will prompt you for your credentials. Enter in your WGU Credentials and the project will be cloned onto your local machine.  
+The application is deployed and accessible at:
 
-2. How to create a branch and start Development?
+https://vrn-pims.up.railway.app
 
-- GitLab method
-> Press the '+' button located near your branch name. In the dropdown list, press the 'New branch' button. This will allow you to create a name for your branch. Once the branch has been named, you can select 'Create Branch' to push the branch to your repository.
+Users can access the system directly through a web browser without any local setup.
 
-- IntelliJ method
-> In IntelliJ, Go to the 'Git' button on the top toolbar. Select the new branch option and create a name for the branch. Make sure checkout branch is selected and press create. You can now add a commit message and push the new branch to the local repo.
+---
 
-## SUPPORT
-If you need additional support, please navigate to the course page and reach out to your course instructor.
+## Demo Accounts
 
-## FUTURE USE
-Take this opportunity to create or add to a simple resume portfolio to highlight and showcase your work for future use in career search, experience, and education!
+### Employee
+- Username: employee
+- Password: employee123
+
+### Manager
+- Username: manager
+- Password: manager123
+
+### Admin
+- Username: admin
+- Password: admin123
+
+---
+
+## Features
+
+- Inventory Management (Create, Read, Update, Delete)
+- Search and Filtering Across Inventory
+- Reporting System:
+    - Low Stock Report
+    - Inventory by Location
+    - Expiring Local Goods
+- Low Stock Indicators
+- Role-Based Access Control
+- Real-Time Inventory Visibility
+- Print-Friendly Reports
+
+---
+
+## Technology Stack
+
+- Backend: Spring Boot (Java)
+- Frontend: Thymeleaf, HTML, CSS
+- Database: MySQL (Railway Hosted)
+- Deployment: Railway
+- Version Control: Git (GitHub & GitLab)
+
+---
+
+## Validation and Error Handling
+
+The application enforces validation rules across all inventory forms:
+
+- Required fields must be completed before submission
+- Invalid inputs (such as negative values) are rejected
+- Inline error messages are displayed directly on the form
+- Invalid data is not saved to the database
+
+---
+
+## Running Locally (Optional)
+
+The application is fully deployed and can be accessed online.  
+However, developers may run the application locally for testing or development.
+
+### Requirements
+- Java 17
+- Maven
+- IntelliJ IDEA
+- MySQL (optional if using hosted database)
+
+### Steps
+
+1. Clone the repository:
+   ```bash
+   git clone <https://gitlab.com/wgu-gitlab-environment/student-repos/aal1206/d424-software-engineering-capstone.git>
